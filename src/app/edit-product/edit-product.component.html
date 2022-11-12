@@ -1,0 +1,35 @@
+<div class="container">
+  <div>
+       <h2>Modifier produit</h2>
+  </div>
+
+  <form>
+    <div  hidden class="form-group">
+      <label for="id">ID</label>
+      <input  readonly type="number" class="form-control" placeholder="1"  id="id" name="id" [(ngModel)]="currrentProduct.id">
+    </div>
+    <div class="form-group">
+      <label for="name">Nom Produit</label>
+      <input type="text" class="form-control" placeholder="alcatel"  id="name" name="name"  [(ngModel)]="currrentProduct.name">
+    </div>
+    <div class="form-group">
+      <label for="prix">Prix</label>
+      <input type="number" class="form-control" placeholder=" 100000" id="prix" name="prix"  [(ngModel)]="currrentProduct.prix">
+    </div>
+    <div class="form-group">
+      <label for="dateCreation">Date creation</label>
+      <input type="date" class="form-control" id="dateCreation" name="dateCreation"  [(ngModel)]="currrentProduct.dateCreation">
+    </div>
+
+    <div class="form-select">
+      <label class="form-select-label">Categorie</label>
+       <select class="form-control" id="idCat" name="idCat"   [(ngModel)]="currentidCategorie">
+          <option *ngFor="let cat of categories" [value]="cat.id"  > {{cat.nom}} </option>
+        </select>
+    </div>
+
+    <button type="submit"(click)="updateProduct()"class="btn btn-success  mt-3">Modifier</button>
+  </form>
+
+
+</div>

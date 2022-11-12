@@ -1,0 +1,21 @@
+<div class="container mt-2">
+  <div class="card  shadow mb-4">
+        <div class="card-body">
+               <table class="table table-striped ">
+                   <thead><tr> <th>Id</th><th>Nom</th> <th>Prix</th> <th>Date Création</th> <th>Categorie</th> <th>Supprimer</th> <th>Modifier</th> </tr></thead>
+                   <tbody *ngFor="let product of produits">
+                      <tr>
+                        <td>{{product.id}}</td>
+                        <td>{{product.name}}</td>
+                        <td>{{product.prix }}</td>
+                        <td>{{product.dateCreation | date:'dd/MM/yyyy' }}</td>
+                        <td *ngIf="product.categorie">{{product.categorie.nom}}</td>
+                        <td> <button   class="btn btn-danger" (click)="handleDeleteProduct(product)">Supprimer</button></td>
+                        <td> <a class="btn btn-primary" [routerLink]="['/edit-product/', product.id]"> Modifier </a></td>
+                      </tr>
+                   </tbody>
+               </table>
+        </div>
+  </div>
+</div>
+
