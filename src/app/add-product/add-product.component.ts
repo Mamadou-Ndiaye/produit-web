@@ -20,22 +20,28 @@ export class AddProductComponent implements OnInit {
   constructor(protected productService:ProductService, protected router: Router) { }
 
   ngOnInit(): void {
-     this.getAllCategories();
+       this.getAllCategories();
   }
 
   addProduct(){
-    let categorie = this.productService.findCategorie(this.newidCategorie);
-    this.newProduct.categorie= this.categorie;
-    this.productService.addProduct(this.newProduct);
-    this.newProduct = new Product();
-    this.router.navigateByUrl("/products");
+  this.newProduct.categorie = this.categories.find(cat=> cat.id == this.newidCategorie)!;
+  console.log("======Befaore {} =============",this.newProduct);
+    this.productService.addProduct(this.newProduct).subscribe({
+        next: data=>{
+             console.log("======== After{} ========", data);
+             this.router.navigateByUrl("/products");
+        },
+        error: err=>{
+           this.errorMessage= err;
+        }
+    });
+
   }
 
   getAllCategories(){
     this.productService.listeCategories().subscribe({
       next: (data)=>{
         this.categories= data;
-        return this.categorie;
       },
       error : err=> {
         this.errorMessage= err;

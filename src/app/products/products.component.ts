@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Categorie } from '../models/categorie';
 import { Product } from '../models/product';
 import { ProductService } from '../services/product.service';
 
@@ -10,6 +11,7 @@ import { ProductService } from '../services/product.service';
 })
 export class ProductsComponent implements OnInit {
   produits!: Product[];
+  categories!: Categorie[];
   errorMessage: any;
 
   constructor(protected productService:ProductService, protected router: Router) {
@@ -17,7 +19,19 @@ export class ProductsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.listCategeries();
      this.getAllProducts();
+  }
+
+  listCategeries(){
+    this.productService.listeCategories().subscribe({
+      next: (data)=>{
+        this.categories = data;
+      },
+      error: err => {
+        this.errorMessage= err;
+      }
+    });
   }
 
   getAllProducts(){
@@ -37,7 +51,7 @@ export class ProductsComponent implements OnInit {
          this.productService.deleteProduct(product).subscribe({
             next: (data)=>{
                console.log("Suppression effectuer avec succees");
-
+               this.getAllProducts();
             },
             error: err => {
               this.errorMessage= err;

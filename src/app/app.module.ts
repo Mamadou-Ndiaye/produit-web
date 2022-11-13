@@ -8,13 +8,15 @@ import { ProductsComponent } from './products/products.component';
 import { AddProductComponent } from './add-product/add-product.component';
 import { FormsModule } from '@angular/forms';
 import { EditProductComponent } from './edit-product/edit-product.component';
+import { RechercheParCategorieComponent } from './recherche-par-categorie/recherche-par-categorie.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ProductsComponent,
     AddProductComponent,
-    EditProductComponent
+    EditProductComponent,
+    RechercheParCategorieComponent
   ],
   imports: [
     BrowserModule,

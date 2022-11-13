@@ -1,8 +1,10 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 import { Categorie } from '../models/categorie';
 import { Product } from '../models/product';
+
+const httpOptions = { headers: new HttpHeaders( {'Content-Type': 'application/json'} ) };
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +13,7 @@ export class ProductService {
 
      baseUrl : string = "http://localhost:8086/api";
      apiUrl : string = this.baseUrl +"/products";
-     urlApi : string = this.baseUrl + "/categorys" ;
+     urlApi : string = this.baseUrl + "/categories" ;
 
 
   produits: Product[];
@@ -22,8 +24,8 @@ export class ProductService {
     this.categories = [ {id : 1, nom : "PC"}, {id : 2, nom : "Téléphone"}];
 
     this.produits = [{id: 1, name : "PC Asus",prix : 250000, dateCreation : new Date("04/11/2022"), categorie: {id : 1, nom : "PC"}},
-        {id: 2, name : "Lenovo",prix : 750000, dateCreation : new Date("05/11/2022"), categorie: {id : 1, nom : "PC"}},
-        {id: 3, name : "Mac Book",prix: 1050000, dateCreation : new Date("06/11/2022"), categorie: {id : 1, nom : "PC"}},
+        {id: 2, name : "Lenovo",prix : 750000, dateCreation : new Date("05/11/2022"),   categorie: {id : 1, nom : "PC"}},
+        {id: 3, name : "Mac Book",prix: 1050000, dateCreation : new Date("06/11/2022"),  categorie: {id : 1, nom : "PC"}},
         {id: 4, name : "Iphone 11",prix : 350000, dateCreation : new Date("07/11/2022"), categorie:{id : 2, nom : "Téléphone"}},
         {id: 5, name : "Samsung",prix : 450000, dateCreation : new Date("08/11/2022"),   categorie: {id : 2, nom : "Téléphone"}}
      ];
@@ -33,14 +35,16 @@ export class ProductService {
       return this.http.get<Product[]>(this.apiUrl);
    }
 
-   addProduct(product: Product){
-     this.produits.push(product);
+   addProduct(product: Product) : Observable<Product>{
+    const url = `${this.apiUrl}`;
+
+    return this.http.post<Product>(url, product, httpOptions);
+
    }
 
-   deleteProduct(product: Product): Observable<boolean>{
+   deleteProduct(product: Product) {
     const url = `${this.apiUrl}/${product.id}`;
-     this.http.delete(url);
-     return of(true);
+     return this.http.delete<Product>(url);
   }
 
 
