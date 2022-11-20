@@ -12,7 +12,7 @@ import { ProductService } from '../services/product.service';
 export class EditProductComponent implements OnInit {
   id!: number;
   currrentProduct!: Product;
- public currentidCategorie!: number;
+  public currentidCategorie!: number;
   categories!: Categorie[];
   categorie!: Categorie;
   errorMessage!: string;
@@ -23,14 +23,26 @@ export class EditProductComponent implements OnInit {
   }
 
   ngOnInit(): void {
-      this.listeCategories();
-    this.currrentProduct = this.productService.getProduct(this.id);
-    this.currentidCategorie = this.currrentProduct.categorie?.id!;
+    this.listeCategories();
+    this.getProduct();
+   // console.log("======={} =============", this.currentidCategorie);
+  }
+
+  getProduct() {
+    this.productService.getProduct(this.id).subscribe({
+      next: data=>{
+        this.currrentProduct = data;
+        this.currentidCategorie = this.currrentProduct.category?.id!;
+      },
+      error: err => {
+        this.errorMessage= err;
+      }
+    });
   }
 
   listeCategories(){
     this.productService.listeCategories().subscribe({
-      next: (data)=>{
+      next: data =>{
         this.categories = data;
       },
       error: err => {
@@ -40,9 +52,17 @@ export class EditProductComponent implements OnInit {
   }
 
   updateProduct(){
-      this.currrentProduct.categorie= this.findCategorie(this.currentidCategorie);
-      this.productService.editProduct(this.currrentProduct);
-      this.router.navigate(['products']);
+      this.currrentProduct.category= this.findCategorie(this.currentidCategorie);
+      this.productService.editProduct(this.currrentProduct).subscribe({
+        next: data=>{
+            console.log(data);
+            this.router.navigate(['products']);
+        },
+        error: err=>{
+          this.errorMessage= err;
+        }
+      });
+
   }
 
   /* findCategorie(): any{
@@ -61,7 +81,7 @@ export class EditProductComponent implements OnInit {
   findCategorie(id : number) : any {
     this.productService.findCategorie(id).subscribe({
       next: data =>{
-       this.categorie  = data;
+        this.categorie  = data;
         return this.categorie;
       },
       error : err =>{

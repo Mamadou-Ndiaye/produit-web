@@ -24,7 +24,7 @@ export class AddProductComponent implements OnInit {
   }
 
   addProduct(){
-  this.newProduct.categorie = this.categories.find(cat=> cat.id == this.newidCategorie)!;
+  this.newProduct.category = this.categories.find(cat=> cat.id == this.newidCategorie)!;
   console.log("======Befaore {} =============",this.newProduct);
     this.productService.addProduct(this.newProduct).subscribe({
         next: data=>{

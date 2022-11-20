@@ -1,5 +1,20 @@
 <div class="container mt-2">
-  <div class="card  shadow mb-4">
+
+  <form class="form-inline">
+    <div class="form-group mx-sm-3 mb-2 mt-2 ">
+       <label>Nom Produit</label>
+       <input type="text" class="form-control" [(ngModel)]="nomProduit" name="nomProduit" class="form-control">
+       <button type="submit" (click)="rechercherProds()" class="btn btn-primary mb-2 ml-2">Rechercher</button>
+      </div>
+
+      <div class="form-group mx-sm-3 mb-2 mt-2 ">
+        <label>Nom Produit en tapant</label>
+        <input class="form-control" #searchTerm (keyup)="onKeyUp(searchTerm.value)">
+      </div>
+
+  </form>
+
+  <div class="card  shadow mb-4"  *ngIf="produits">
         <div class="card-body">
                <table class="table table-striped ">
                    <thead><tr> <th>Id</th><th>Nom</th> <th>Prix</th> <th>Date Création</th> <th>Categorie</th> <th>Supprimer</th> <th>Modifier</th> </tr></thead>
@@ -7,10 +22,10 @@
                       <tr>
                         <td>{{product.id}}</td>
                         <td>{{product.name}}</td>
-                        <td>{{  product.prix  | currency: 'XOF' }}</td>
+                        <td>{{product.prix }}</td>
                         <td>{{product.dateCreation | date:'dd/MM/yyyy' }}</td>
                         <td>{{product.category?.nom}}</td>
-                        <td> <button   class="btn btn-danger" (click)="handleDeleteProduct(product)">Supprimer</button></td>
+                        <td> <button class="btn btn-danger" (click)="handleDeleteProduct(product)">Supprimer</button></td>
                         <td> <a class="btn btn-primary" [routerLink]="['/edit-product/', product.id]"> Modifier </a></td>
                       </tr>
                    </tbody>
@@ -18,4 +33,5 @@
         </div>
   </div>
 </div>
+
 

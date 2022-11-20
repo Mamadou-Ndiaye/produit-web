@@ -9,6 +9,7 @@ import { AddProductComponent } from './add-product/add-product.component';
 import { FormsModule } from '@angular/forms';
 import { EditProductComponent } from './edit-product/edit-product.component';
 import { RechercheParCategorieComponent } from './recherche-par-categorie/recherche-par-categorie.component';
+import { RechercheParNomComponent } from './recherche-par-nom/recherche-par-nom.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { RechercheParCategorieComponent } from './recherche-par-categorie/recher
     ProductsComponent,
     AddProductComponent,
     EditProductComponent,
-    RechercheParCategorieComponent
+    RechercheParCategorieComponent,
+    RechercheParNomComponent
   ],
   imports: [
     BrowserModule,

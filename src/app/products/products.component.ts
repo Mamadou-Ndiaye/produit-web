@@ -38,6 +38,7 @@ export class ProductsComponent implements OnInit {
       this.productService.getAllProducts().subscribe({
       next: (data)=>{
         this.produits = data;
+        this.produits.forEach(produit=>{ console.log(produit.category?.nom);});
       },
       error: err => {
         this.errorMessage= err;

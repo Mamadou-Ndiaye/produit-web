@@ -1,5 +1,15 @@
 <div class="container mt-2">
-  <div class="card  shadow mb-4">
+
+  <div class="col-sm-4 col-md-4 col-lg-4 mb-4">
+    <label>Categories </label>
+     <select class="form-control form-control-lg" id="id" name="id" [(ngModel)]="id" (change)="onChange()">
+      <option *ngFor="let cat of categories" value="{{cat.id}}">
+          {{cat.nom}}
+      </option>
+    </select>
+  </div>
+
+  <div class="card  shadow mb-4"  *ngIf="produits">
         <div class="card-body">
                <table class="table table-striped ">
                    <thead><tr> <th>Id</th><th>Nom</th> <th>Prix</th> <th>Date Création</th> <th>Categorie</th> <th>Supprimer</th> <th>Modifier</th> </tr></thead>
@@ -7,7 +17,7 @@
                       <tr>
                         <td>{{product.id}}</td>
                         <td>{{product.name}}</td>
-                        <td>{{  product.prix  | currency: 'XOF' }}</td>
+                        <td>{{product.prix }}</td>
                         <td>{{product.dateCreation | date:'dd/MM/yyyy' }}</td>
                         <td>{{product.category?.nom}}</td>
                         <td> <button   class="btn btn-danger" (click)="handleDeleteProduct(product)">Supprimer</button></td>
@@ -18,4 +28,5 @@
         </div>
   </div>
 </div>
+
 
