@@ -106,5 +106,7 @@
       }
     }
   },
-  "defaultProject": "product-web"
+  "cli": {
+    "analytics": false
+  }
 }
