@@ -11,8 +11,10 @@ import { FormsModule } from '@angular/forms';
 import { EditProductComponent } from './edit-product/edit-product.component';
 import { RechercheParCategorieComponent } from './recherche-par-categorie/recherche-par-categorie.component';
 import { RechercheParNomComponent } from './recherche-par-nom/recherche-par-nom.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 
+/* Configuration de keycloak */
 export  function kcFactory(kcService: KeycloakService){
   return ()=>{
       kcService.init({
@@ -22,7 +24,7 @@ export  function kcFactory(kcService: KeycloakService){
               url : "http://localhost:9090"
              },
              initOptions : {
-              onLoad : "login-required",
+              onLoad : "check-sso",
               checkLoginIframe :true
              }
       })
@@ -36,7 +38,8 @@ export  function kcFactory(kcService: KeycloakService){
     AddProductComponent,
     EditProductComponent,
     RechercheParCategorieComponent,
-    RechercheParNomComponent
+    RechercheParNomComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
